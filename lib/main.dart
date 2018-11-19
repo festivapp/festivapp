@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'drawer.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         // counter didn't reset back to zero; the application is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Festivapp'),
     );
   }
 }
@@ -70,38 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(child: Text('Festivapp')),
-            ListTile(
-              title: Text('Kalender'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('Checkliste'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('Wetter'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('Bierbörse'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('Karte'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('Runningorder'),
-              onTap: () {},
-            )
-          ],
-        )
-      ),
-      body: Center(
+      drawer: FestivappDrawer(),
+      /*body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
@@ -135,6 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    */
     );
   }
 }
