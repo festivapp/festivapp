@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'drawer.dart';
+import 'package:flutter_calendar/flutter_calendar.dart';
 
 class PageCalendar extends StatelessWidget {
 
@@ -10,6 +11,9 @@ class PageCalendar extends StatelessWidget {
         title: Text('Kalender'),
       ),
       drawer: FestivappDrawer(),
+      body: Calendar(
+        isExpandable: true,
+      ),
     );
   }
 }
