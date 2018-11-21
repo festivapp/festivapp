@@ -19,6 +19,9 @@ class BeerPage extends StatefulWidget {
 class BeerPageState extends State<BeerPage> {
   @override
 
+  static List<Image> images = [Image.asset('assets/50.png'), Image.asset('assets/sternburg.png')];
+  Image active = images[0];
+
   Widget botBar() {
     return BottomAppBar(
       color: Colors.transparent,
@@ -28,8 +31,12 @@ class BeerPageState extends State<BeerPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              SelectionButton.button(Icons.clear, Colors.red, () {}),
-              SelectionButton.button(Icons.check, Colors.green, () {}),
+              SelectionButton.button(Icons.clear, Colors.red, () {setState(() {
+                active = images[1];
+              });}),
+              SelectionButton.button(Icons.check, Colors.green, () {setState(() {
+                active = images[0];
+              });}),
             ],
           ),
       ),
@@ -43,7 +50,7 @@ class BeerPageState extends State<BeerPage> {
       ),
       drawer: FestivappDrawer(),
       body: Center(
-        child: Image.asset('assets/50.png'),
+        child: active,
       ),
       bottomNavigationBar: botBar(),
     );
