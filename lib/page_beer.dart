@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'drawer.dart';
 
 class PageBeer extends StatelessWidget {
@@ -19,8 +20,44 @@ class BeerPage extends StatefulWidget {
 class BeerPageState extends State<BeerPage> {
   @override
 
-  static List<Image> images = [Image.asset('assets/50.png'), Image.asset('assets/sternburg.png')];
-  Image active = images[0];
+  static List<Beer> beer = [Beer.beer('5.0', 'assets/50.png'), Beer.beer('5.0ex', 'assets/50_export.png'), Beer.beer('2.5', 'assets/25.jpg'), Beer.beer('becks', 'assets/becks.png'), Beer.beer('sternburg', 'assets/sternburg.png')];
+  Beer active = beer[0];
+
+  void rejectImage() {
+    var rand = new Random();
+    int index = rand.nextInt(beer.length);
+    setState(() {
+      active = beer[index];
+    });
+  }
+
+  void acceptImage() {
+    var rand = new Random();
+    int index = rand.nextInt(beer.length);
+    if (active.name == 'sternburg') {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Warnung!'),
+              content: Text('Du hast gerade versucht Sternburg auszuwählen!'),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Es tut mir leid!'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          },
+      );
+    } else {
+      setState(() {
+        active = beer[index];
+      });
+    }
+  }
 
   Widget botBar() {
     return BottomAppBar(
@@ -31,12 +68,8 @@ class BeerPageState extends State<BeerPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              SelectionButton.button(Icons.clear, Colors.red, () {setState(() {
-                active = images[1];
-              });}),
-              SelectionButton.button(Icons.check, Colors.green, () {setState(() {
-                active = images[0];
-              });}),
+              SelectionButton.button(Icons.clear, Colors.red, () => rejectImage()),
+              SelectionButton.button(Icons.check, Colors.green, () => acceptImage()),
             ],
           ),
       ),
@@ -54,6 +87,23 @@ class BeerPageState extends State<BeerPage> {
       ),
       bottomNavigationBar: botBar(),
     );
+  }
+
+}
+
+class Beer extends StatelessWidget {
+
+  final String name;
+  final String asset;
+
+  Beer.beer(
+      this.name,
+      this.asset,
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(asset);
   }
 
 }
